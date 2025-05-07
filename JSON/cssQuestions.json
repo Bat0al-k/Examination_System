@@ -1,56 +1,56 @@
 [
     {
         "id": 1,
-        "question": "What is a correct HTML markup for the document type declaration?",
-        "answer_1": "<!DOCTYPE html>",
-        "answer_2": "!DOCTYPE html;",
-        "answer_3": "DOCTYPE html",
-        "answer_4": "--DOCTYPE html;",
-        "right_answer": "<!DOCTYPE html>"
+        "question": "What is the correct syntax to change the background color of an element in CSS?",
+        "answer_1": "bgcolor: red;",
+        "answer_2": "backgroundColor = red;",
+        "answer_3": "background-color: red;",
+        "answer_4": "color-background: red;",
+        "right_answer": "background-color: red;"
     },
     {
         "id": 2,
-        "question": "Which of the following headers is the largest and most important header?",
-        "answer_1": "<h1>",
-        "answer_2": "<h2>",
-        "answer_3": "<h3>",
-        "answer_4": "<h6>",
-        "right_answer": "<h1>"
+        "question": " Which of the following is the correct way to link an external CSS file?",
+        "answer_1": "<style src='style.css'>",
+        "answer_2": "<link rel='stylesheet' href='style.css'>",
+        "answer_3": "<css src='style.css'>",
+        "answer_4": "<stylesheet>style.css</stylesheet>",
+        "right_answer": "<link rel='stylesheet' href='style.css'>"
     },
     {
         "id": 3,
-        "question": "What is HTML?",
-        "answer_1": "HTML describes the structure of a webpage",
-        "answer_2": " HTML is the standard markup language mainly used to create web pages",
-        "answer_3": "HTML consists of a set of elements that helps the browser how to view the content",
-        "answer_4": "All of the mentioned",
-        "right_answer": "All of the mentioned"
+        "question": "Which property is used to control the size of text?",
+        "answer_1": "font-style",
+        "answer_2": "text-size",
+        "answer_3": "font-size",
+        "answer_4": "text-font",
+        "right_answer": "font-size"
     },
     {
         "id": 4,
-        "question": "What is DOM in HTML?",
-        "answer_1": "Language dependent application programming",
-        "answer_2": "Hierarchy of objects in ASP.NET",
-        "answer_3": "Application programming interface",
-        "answer_4": "Convention for representing and interacting with objects in html documents",
-        "right_answer": "Convention for representing and interacting with objects in html documents"
+        "question": "What is the default value of the position property for HTML elements?",
+        "answer_1": "absolute",
+        "answer_2": "relatove",
+        "answer_3": "static",
+        "answer_4": "fixed",
+        "right_answer": "static"
     },
     {
         "id": 5,
-        "question": " In which part of the HTML metadata is contained?",
-        "answer_1": "head tag",
-        "answer_2": "title tag",
-        "answer_3": "html tag",
-        "answer_4": "body tag",
-        "right_answer": "head tag"
+        "question": "Which CSS property is used to add space inside the border of an element?",
+        "answer_1": "margin",
+        "answer_2": "padding",
+        "answer_3": "border-spacing",
+        "answer_4": "spacing",
+        "right_answer": "padding"
     },
     {
         "id": 6,
-        "question": "Which element is used to get highlighted text in HTML5?",
-        "answer_1": "<u>",
-        "answer_2": "<mark>",
-        "answer_3": "<highlight>",
-        "answer_4": "<b>",
-        "right_answer": "<mark>"
+        "question": "What does the z-index property in CSS control?",
+        "answer_1": "The zoom level",
+        "answer_2": "The stacking order of elements",
+        "answer_3": "The font size",
+        "answer_4": "The opacity",
+        "right_answer": "The stacking order of elements"
     }
 ]
