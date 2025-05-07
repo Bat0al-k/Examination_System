@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "question": "Inside which HTML element do we put the JavaScript?",
+        "answer_1": "<scripting>",
+        "answer_2": "<script>",
+        "answer_3": "<js>",
+        "answer_4": "<javascript>",
+        "right_answer": "<script>"
+    },
+    {
+        "id": 2,
+        "question": "Which one is NOT a legal variable name?",
+        "answer_1": "FirstName",
+        "answer_2": "$FirstName",
+        "answer_3": "_FirstName",
+        "answer_4": "-FirstName",
+        "right_answer": "-FirstName"
+    },
+    {
+        "id": 3,
+        "question": "What is a correct syntax for assigning a value to a variable?",
+        "answer_1": "x : 5",
+        "answer_2": "x = 5",
+        "answer_3": "x == 5",
+        "answer_4": "x -> 5",
+        "right_answer": "x = 5"
+    },
+    {
+        "id": 4,
+        "question": "Which of the following is a JavaScript data type?",
+        "answer_1": "number",
+        "answer_2": "string",
+        "answer_3": "boolean",
+        "answer_4": "All of the above",
+        "right_answer": "All of the above"
+    },
+    {
+        "id": 5,
+        "question": " Which keyword is used to declare a variable that cannot be reassigned?",
+        "answer_1": "let",
+        "answer_2": "var",
+        "answer_3": "const",
+        "answer_4": "static",
+        "right_answer": "static"
+    },
+    {
+        "id": 6,
+        "question": "Which method is used to convert a JSON string into a JavaScript object?",
+        "answer_1": "JSON.stringify()",
+        "answer_2": "JSON.parse()",
+        "answer_3": "JSON.convert()",
+        "answer_4": "JSON.toObject()",
+        "right_answer": "JSON.parse()"
+    }
+]

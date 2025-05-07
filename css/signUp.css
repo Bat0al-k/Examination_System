@@ -1,0 +1,252 @@
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 3vh;
+    max-width: 30%;
+    padding-top: 4vh;
+    border-radius: 20px;
+    position: relative;
+    background-color: #1a1a1a;
+    color: #fff;
+    border: 1px solid #333;
+    margin: 7vh auto;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.form-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    color: #00bfff;
+    margin: 0 3vh;
+    transition: all 0.3s ease;
+}
+
+.title::before,
+.title::after {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 0px;
+    background-color: #00bfff;
+}
+
+.title::after {
+    animation: pulse 1s linear infinite;
+}
+
+.message {
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 2vh;
+    transition: all 0.3s ease;
+}
+
+.signin {
+    text-align: center;
+    background-color: #00bfff;
+    width: 100%;
+    height: 12vh;
+    border-radius: 50% 50% 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.signin a {
+    color: #000;
+    font-weight: bold;
+    margin-left: 1vh;
+}
+
+.signin a:hover {
+    text-decoration: underline royalblue;
+}
+
+.form label {
+    position: relative;
+    left: 5vh;
+    width: 93%;
+    margin: 2vh;
+    transition: all 0.5s ease, opacity 0.3s ease;
+}
+
+.form label .input {
+    background-color: #333;
+    color: #fff;
+    width: 80%;
+    padding: 20px 5px 5px 10px;
+    outline: 0;
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+    transition: 0.3s ease;
+    font-size: medium;
+}
+
+.form label .input+span {
+    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: 10px;
+    top: 0px;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown+span {
+    top: 12.5px;
+    font-size: 0.9em;
+}
+
+.form label .input:focus+span,
+.form label .input:valid+span 
+.form label .input[required]:valid+span[for="fullname"],
+.form label .input[required]:valid+span[for="email"],
+.form label .input[required]:valid+span[for="password"] {
+    color: #00bfff;
+    top: 0px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+.submit {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    background-color: #00bfff;
+    margin: 3vh;
+    width: 80%;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.submit:hover {
+    background-color: #00bfff96;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.1), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+/* Animation classes */
+.slide-up {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.slide-down {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error {
+    border-color: #ff5555 !important;
+}
+
+.error-message {
+    color: #ff5555;
+    font-size: 12px;
+    margin-top: -15px;
+    margin-bottom: 10px;
+    width: 80%;
+    text-align: left;
+    padding-left: 15px;
+    display: none;
+}
+
+/* Login specific styles */
+.login-mode .email-field,
+.login-mode .confirm-field {
+    display: none;
+}
+
+.login-mode .title {
+    color: #4caf50;
+}
+
+.login-mode .title::before,
+.login-mode .title::after {
+    background-color: #4caf50;
+}
+
+.login-mode .submit {
+    background-color: #4caf50;
+}
+
+.login-mode .submit:hover {
+    background-color: #4caf5096;
+}
+
+.login-mode .signin {
+    background-color: #4caf50;
+}
+
+.login-mode .signin a {
+    color: #000;
+}
+/* //////////////// */
+.error {
+    border-color: #ff5555 !important;
+}
+
+.error-message {
+    color: #ff5555;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-left: 10px;
+    display: none;
+}
+
+.input:invalid {
+    border-color: #ff5555;
+}
