@@ -11,12 +11,13 @@
 </head>
 <body>
     <div class="homeContainer" id="box">
-        <h2>Hello, name</h2>
+        <h2 class="userName">Hello, </h2>
         <div class="categories" id="btn-group">
-            <button class="examType html-btn"><i class="fab fa-html5"></i> <span>HTML</span></button>
-            <button class="examType css-btn"><i class="fab fa-css3-alt"></i> <span>CSS</span></button>
-            <button class="examType js-btn"><i class="fab fa-js-square"></i> <span>JS</span></button>
+            <button class="examType html-btn" data-type="HTML"><i class="fab fa-html5"></i> <span>HTML</span></button>
+            <button class="examType css-btn" data-type="CSS"><i class="fab fa-css3-alt"></i> <span>CSS</span></button>
+            <button class="examType js-btn" data-type="JS"><i class="fab fa-js-square"></i> <span>JS</span></button>
         </div>
+        <p id="warningMsg" class="warning hidden">please select the type of exam at first</p>
         <p id="motivateMg">Are you ready to take it ?!</p>
         <button class="arrow-btn">></button>
     </div>

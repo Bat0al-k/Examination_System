@@ -26,8 +26,8 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    width: 40%;
-    height: 45vh;
+    width: 50%;
+    height: 50vh;
     margin: 25vh auto;
     padding: 4vh;
     text-align: center;
@@ -95,6 +95,11 @@ body {
     font-size: 1.4em;
     transition: transform 0.3s ease;
 }
+.examType.selected {
+    background-color:#333;
+    color: white;
+    border-color:#333;
+}
 
 .examType span {
     transition: opacity 0.3s ease, width 0.3s ease;
@@ -126,7 +131,15 @@ body {
     background-color: #f7df1e;
     color: #000;
 }
+.warning {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
+}
 
+.hidden {
+    display: none;
+}
 .arrow-btn {
     background-color: #6b5b95;
     color: white;

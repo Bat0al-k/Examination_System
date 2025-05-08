@@ -7,6 +7,7 @@ let nextButton = document.querySelector(".buttons .next");
 let submitButton = document.querySelector(".buttons .submit");
 let Timer = document.querySelector(".Timer");
 let flag = document.querySelector(".flag");
+let category=document.querySelector(".category");
 
 let currentIndex = 0;
 let rightAnswers = 0;
@@ -15,9 +16,28 @@ let questionsObj = []; // make global
 submitButton.disabled=true;
 async function getQuestions() {
     try {
-        sessionStorage.clear(); // ✅ Clear session data on start
+        sessionStorage.clear(); // Clear session data on start
 
-        const response = await fetch("../JSON/htmlQuestions.json");
+        let selectedExamType = localStorage.getItem("selectedExamType");
+        let fileName;
+        category.textContent+= selectedExamType;
+
+        switch (selectedExamType) {
+            case "HTML":
+                fileName = "../JSON/htmlQuestions.json";
+                break;
+            case "CSS":
+                fileName = "../JSON/cssQuestions.json";
+                break;
+            case "JS":
+                fileName = "../JSON/JsQuestions.json";
+                break;
+            default:
+                console.error("No valid exam type found!");
+                return;
+        }
+
+        const response = await fetch(fileName);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -40,7 +60,7 @@ async function getQuestions() {
 
             addQuestionData(questionsObj[currentIndex], questionCount);
             handleBullets();
-            
+
             showResults(questionCount);
 
             previousButton.disabled = currentIndex === 0;
@@ -63,7 +83,7 @@ async function getQuestions() {
 
             previousButton.disabled = currentIndex === 0;
             nextButton.disabled = currentIndex === questionCount - 1;
-            
+
             showResults(questionCount);
         };
 
@@ -71,6 +91,7 @@ async function getQuestions() {
         console.error("Failed to load questions:", error);
     }
 }
+
 
 getQuestions();
 
@@ -167,6 +188,27 @@ function handleBullets() {
         }
     });
 }
+function checkAllAnswers() {
+    let allAnswered = true;
+
+    for (let i = 0; i < questionsObj.length; i++) {
+        // تحقق إذا كان المستخدم قد أجاب على السؤال الحالي
+        let savedAnswer = sessionStorage.getItem(`answer_${i}`);
+        if (!savedAnswer) {
+            allAnswered = false;
+            nextButton.disabled = false;
+            // إذا لم يكن هناك إجابة، انتقل مباشرة للسؤال غير المجاب عليه
+            currentIndex = i;
+            questionArea.innerHTML = "";
+            answerArea.innerHTML = "";
+            addQuestionData(questionsObj[currentIndex], questionsObj.length);
+            handleBullets();
+            break;
+        }
+    }
+
+    return allAnswered;
+}
 
 // (Optional) You may have countDownTimer and showResults functions below here if needed.
 
@@ -176,22 +218,26 @@ function showResults(count) {
         submitButton.disabled=false;
 
         submitButton.onclick = () => {
+            // تحقق من الإجابات قبل الانتقال
             let rightAnswer = questionsObj[currentIndex].right_answer;
-            checkAnswer(rightAnswer, count); // ✅ Save last answer
-
-            // ✅ Recalculate right answers
-            let correctCount = 0;
-            for (let i = 0; i < count; i++) {
-                const userAnswer = sessionStorage.getItem(`answer_${i}`);
-                if (userAnswer === questionsObj[i].right_answer) {
-                    correctCount++;
+            checkAnswer(rightAnswer, questionsObj.length); // حفظ الإجابة الأخيرة
+        
+            // التحقق من الإجابات
+            if (checkAllAnswers()) {
+                // إذا كانت جميع الأسئلة قد تم الإجابة عليها
+                let correctCount = 0;
+                for (let i = 0; i < questionsObj.length; i++) {
+                    const userAnswer = sessionStorage.getItem(`answer_${i}`);
+                    if (userAnswer === questionsObj[i].right_answer) {
+                        correctCount++;
+                    }
                 }
+        
+                // حفظ النتيجة في sessionStorage
+                sessionStorage.setItem("result", correctCount);
+                sessionStorage.setItem("total", questionsObj.length);
+                window.location.href = "result.html"; // الانتقال إلى صفحة النتيجة
             }
-
-            // ✅ Save result to sessionStorage and redirect
-            sessionStorage.setItem("result", correctCount);
-            sessionStorage.setItem("total", count);
-            window.location.href = "result.html"; // ✅ Go to result page
         };
     }
 }
