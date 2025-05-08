@@ -57,14 +57,14 @@ body {
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
-    background-color: #6b5b95;
+    background-color: #017268;
     color: white;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .categories button:hover {
-    background-color: #8672c4;
+    background-color: #017268;
 }
 
 #btn-group {
@@ -93,15 +93,17 @@ body {
 
 .examType i {
     font-size: 1.4em;
+    color: #D0F0EF;
     transition: transform 0.3s ease;
 }
 .examType.selected {
     background-color:#333;
-    color: white;
+    color: #D0F0EF;
     border-color:#333;
 }
 
 .examType span {
+    color: #D0F0EF;
     transition: opacity 0.3s ease, width 0.3s ease;
     white-space: nowrap;
 }
@@ -118,7 +120,7 @@ body {
 
 .html-btn:hover {
     background-color: #ff5722;
-    color: white;
+    color: #D0F0EF;
 }
 
 .css-btn:hover {
@@ -140,13 +142,14 @@ body {
     display: none;
 }
 .arrow-btn {
-    background-color: #6b5b95;
-    color: white;
+    background-color: #017268;
+    color: #D0F0EF;
     border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
+    border-radius: 12px;
+    width: fit-content;
+    padding: 12px 20px;
+    /* height: 8vh; */
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -157,8 +160,8 @@ body {
 }
 
 .arrow-btn:hover {
-    background-color: #8672c4;
-    transform: scale(1.1) rotate(40deg);
+    background-color: #017268;
+    transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 /* ______________ loader overlay design _____________ */
