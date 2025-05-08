@@ -1,10 +1,10 @@
 /* _______ Background Animation _______ */
 body {
-    background: url(../images/bg.jpg);
-    background-size: 160% 160%;
+    background: url(../images/background.jpg);
+    background-size: 120% 120%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    animation: moveBackground 58s infinite alternate;
+    animation: moveBackground 30s infinite alternate;
 }
 
 @keyframes moveBackground {

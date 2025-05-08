@@ -4,8 +4,8 @@
 }
 /* _______ background animation ________ */
 body {
-    background: url(../images/bg.jpg);
-    background-size: 160% 160%;
+    background: url(../images/background.jpg);
+    background-size: 120% 120%;
     background-repeat: no-repeat;
     background-attachment: fixed;
     animation: moveBackground 58s infinite alternate;
@@ -99,7 +99,7 @@ body {
 .examType.selected {
     background-color:#333;
     color: #D0F0EF;
-    border-color:#333;
+    box-shadow: #017268 0px 0px 7px 2px;
 }
 
 .examType span {
