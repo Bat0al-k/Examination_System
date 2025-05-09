@@ -6,13 +6,12 @@
     <title>Question</title>
     <link rel="stylesheet" href="../css/question.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Prevent back navigation and refresh
             history.pushState(null, "", location.href);
             window.onpopstate = function() {
-                history.pushState(null, "", location.href); // Keeps pushing the state so that user can't navigate back
+            history.pushState(null, "", location.href); // Keeps pushing the state so that user can't navigate back
             };
 
             // Prevent the page from refreshing or leaving the page

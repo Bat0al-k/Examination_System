@@ -3,6 +3,7 @@
     padding: 0;
     margin: 0;
   }
+
 .container{
     margin: auto;
     margin-top: 30px;
@@ -10,7 +11,8 @@
     height: 90vh;
     border: #017268 solid 1px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15)
+    box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(50px);
 }
 .header{
     margin-top: 30px ;
@@ -33,7 +35,7 @@
 }
 .fa-flag {
     font-size: 30px; /* Size of the flag */
-    color: #ffeb3b; /* Flag color set to yellow (Hex code for yellow) */
+    color:#049488; /* Flag color set to yellow (Hex code for yellow) */
     transition: transform 0.3s, color 0.3s; /* Smooth transitions for hover effects */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -106,7 +108,7 @@
     justify-content:space-between;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    background-color: #f9f9f9;
+    background: linear-gradient( 30deg,#017269cb, #d0f0ef6c, #017268);
 }
 
 .side-section h3 {
@@ -114,7 +116,7 @@
     margin: 0 0 10px 0; 
     font-size: 18px;
     text-align: center;
-    color: #017268;
+    color: black;
 }
 
 .side-section span {

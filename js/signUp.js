@@ -71,16 +71,21 @@ document.addEventListener('DOMContentLoaded', function () {
             const storedEmail = localStorage.getItem('User Email');
             const storedPassword = localStorage.getItem('User Password');
 
-            if (email === storedEmail && password === storedPassword) {
-                // alert('Login successful!');
-                // window.
-                window.location.href = '../html/home.html'; // redirect to another page
-                form.reset();
-            } else {
-                // alert('Invalid email or password!');
-                showError(emailInput, false, 'Invalid email or password');
-                showError(passwordInput, false, 'Invalid email or password');
+            // Check if data exists and is valid
+            if (!storedEmail || !storedPassword) {
+            // Redirect to 404 page if no user is stored
+            window.location.href = '../html/404.html';
+            return;
             }
+
+            if (email === storedEmail && password === storedPassword) {
+                window.location.href = '../html/home.html';
+                form.reset();
+        } else {
+            showError(emailInput, false, 'Invalid email or password');
+            showError(passwordInput, false, 'Invalid email or password');
+        }
+
         } else {
             // Register
             if (validateForm()) {

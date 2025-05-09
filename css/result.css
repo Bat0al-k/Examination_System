@@ -1,10 +1,10 @@
 /* _______ Background Animation _______ */
 body {
-    background: url(../images/bg.jpg);
-    background-size: 160% 160%;
+    background: url(../images/background.jpg);
+    background-size: 120% 120%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    animation: moveBackground 58s infinite alternate;
+    animation: moveBackground 30s infinite alternate;
 }
 
 @keyframes moveBackground {
@@ -22,8 +22,8 @@ body {
     justify-content: center;
     align-items: center;
     width: 50%;
-    height: 60vh;
-    margin: 15vh auto;
+    height: fit-content;
+    margin: 5vh auto;
     padding: 4vh;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.2);
@@ -35,13 +35,19 @@ body {
 .resultContainer h2 {
     font-size: 22px;
     margin-bottom: 15px;
-    color: #4CAF50; /* Green for success */
+    font-weight: bold;
+    color: #017268; 
+}
+
+.resultContainer #resultText {
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-weight: bold;
 }
 
 .resultContainer p {
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 30px;
-    /* color: #FFF; */
 }
 
 #animation-container {
@@ -50,59 +56,64 @@ body {
 
 .checkmark-container {
     position: relative;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #4CAF50;
+    width: 40vh;
+    height: 40vh;
+    border-radius: 20px;
+    background-image: url(../images/resultPassed.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.checkmark {
-    width: 50px;
-    height: 50px;
-    border: solid 10px white;
-    border-radius: 50%;
-    background-color: transparent;
-    position: relative;
-    transform: rotate(45deg);
-    animation: checkmark 1s ease-out forwards;
-}
-
-@keyframes checkmark {
-    0% {
-        width: 0;
-        height: 0;
-        border-color: transparent;
-    }
-    100% {
-        width: 50px;
-        height: 50px;
-        border-color: white;
-    }
-}
-
 .action-btn {
-    padding: 12px 30px;
+    padding: 14px 36px;
+    margin: 10px;
     border: none;
     border-radius: 25px;
-    background-color: #4CAF50;
-    color: white;
     font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #017268, #239c92, #017268);
+    color: white;
+    box-shadow: 0 6px 12px rgba(1, 114, 104, 0.3);
+}
+
+#retryBtn {
+    background: linear-gradient(135deg, #a82a21, #ff0400, #a82a21); 
+    box-shadow: 0 6px 12px rgba(244, 67, 54, 0.3);
+}
+
+#retryBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 18px rgba(244, 67, 54, 0.4);
 }
 
 .action-btn:hover {
-    background-color: #45a049;
+    transform: scale(1.05);
+    box-shadow: 0 0 16px 2px rgba(160, 158, 158, 0.3);
 }
 
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; 
+}
+
+.button-group .action-btn {
+    width: auto;
+    min-width: 150px;
+}
 /* ____________ Loader Overlay design _______________ */
 #loaderOverlay {
     position: fixed;
     top: 0;
     left: 0;
+    border-radius: 0%;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
@@ -581,5 +592,41 @@ body {
         height: 0;
         width: 10px;
         left: 20px;
+    }
+}
+
+/* _________________ Congratulations Animation ________________ */
+.confetti-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.confetti {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%,
+        68% 57%, 79% 91%,
+        50% 70%, 21% 91%,
+        32% 57%, 2% 35%,
+        39% 35%
+    );
+    opacity: 0.9;
+    animation: confetti-move 3s linear forwards;
+}
+
+@keyframes confetti-move {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x-move), var(--y-move)) rotate(720deg) scale(0.5);
+        opacity: 0;
     }
 }
