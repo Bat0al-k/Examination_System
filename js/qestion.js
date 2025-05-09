@@ -283,6 +283,7 @@ function countDownTimer(duration) {
         if (duration <= 0) {
             clearInterval(countDownInterval);
             console.log('time is out');
+            window.open("result.html", "_self");
             nextButton.disabled = true;
             submitButton.click();
         }

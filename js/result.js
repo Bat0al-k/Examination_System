@@ -42,7 +42,7 @@ if (correct !== null && total !== null) {
   document.getElementById("box").style.margin="25vh auto";
   document.getElementById("resultText").textContent = "No result available.";
   document.getElementById('image').style.backgroundImage = "url('../images/resultFailed.jpg')";
-  document.getElementsByTagName('h2')[0].textContent = "4O4";
+  document.getElementsByTagName('h2')[0].textContent = "Time is out! bad luck..!";
   document.getElementById("calibrate").style.display = "none";
   resultMsg.style.display = "none";
   document.getElementById('image').style.display = "none";
