@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "question": "What is the correct syntax to change the background color of an element in CSS?",
+        "answer_1": "bgcolor: red;",
+        "answer_2": "backgroundColor = red;",
+        "answer_3": "background-color: red;",
+        "answer_4": "color-background: red;",
+        "right_answer": "background-color: red;"
+    },
+    {
+        "id": 2,
+        "question": " Which of the following is the correct way to link an external CSS file?",
+        "answer_1": "<style src='style.css'>",
+        "answer_2": "<link rel='stylesheet' href='style.css'>",
+        "answer_3": "<css src='style.css'>",
+        "answer_4": "<stylesheet>style.css</stylesheet>",
+        "right_answer": "<link rel='stylesheet' href='style.css'>"
+    },
+    {
+        "id": 3,
+        "question": "Which property is used to control the size of text?",
+        "answer_1": "font-style",
+        "answer_2": "text-size",
+        "answer_3": "font-size",
+        "answer_4": "text-font",
+        "right_answer": "font-size"
+    },
+    {
+        "id": 4,
+        "question": "What is the default value of the position property for HTML elements?",
+        "answer_1": "absolute",
+        "answer_2": "relatove",
+        "answer_3": "static",
+        "answer_4": "fixed",
+        "right_answer": "static"
+    },
+    {
+        "id": 5,
+        "question": "Which CSS property is used to add space inside the border of an element?",
+        "answer_1": "margin",
+        "answer_2": "padding",
+        "answer_3": "border-spacing",
+        "answer_4": "spacing",
+        "right_answer": "padding"
+    },
+    {
+        "id": 6,
+        "question": "What does the z-index property in CSS control?",
+        "answer_1": "The zoom level",
+        "answer_2": "The stacking order of elements",
+        "answer_3": "The font size",
+        "answer_4": "The opacity",
+        "right_answer": "The stacking order of elements"
+    }
+]
