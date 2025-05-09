@@ -7,24 +7,25 @@ let nextButton = document.querySelector(".buttons .next");
 let submitButton = document.querySelector(".buttons .submit");
 let Timer = document.querySelector(".Timer");
 let flag = document.querySelector(".flag");
-let category=document.querySelector(".category");
+let category = document.querySelector(".category");
 
 let currentIndex = 0;
 let rightAnswers = 0;
 let countDownInterval = 0;
 let questionsObj = []; // make global
-submitButton.disabled=true;
+submitButton.disabled = true;
+
 async function getQuestions() {
     try {
         Object.keys(sessionStorage).forEach(key => {
             if (key.startsWith("answer_") || key === "result" || key === "total") {
                 sessionStorage.removeItem(key);
             }
-          }); // Clear session data on start
+        }); // Clear session data on start
 
         let selectedExamType = localStorage.getItem("selectedExamType");
         let fileName;
-        category.textContent+= selectedExamType;
+        category.textContent += selectedExamType;
 
         switch (selectedExamType) {
             case "HTML":
@@ -47,6 +48,10 @@ async function getQuestions() {
         }
 
         questionsObj = await response.json();
+        
+        // Shuffle questionsObj array
+        shuffleArray(questionsObj);
+
         let questionCount = questionsObj.length;
 
         createBullets(questionCount);
@@ -92,12 +97,21 @@ async function getQuestions() {
         };
 
     } catch (error) {
+        window.location.href = "404.html";
         console.error("Failed to load questions:", error);
     }
 }
 
+// Shuffle function to randomize the questions
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+}
 
 getQuestions();
+
 
 function createBullets(num) {
     countDown.innerHTML = num;
@@ -148,7 +162,7 @@ function addQuestionData(obj, count) {
             radioInput.id = `answer_${i}`;
             radioInput.dataset.answer = obj[`answer_${i}`];
 
-            // ✅ Load saved answer from sessionStorage
+            // Load saved answer from sessionStorage
             let savedAnswer = sessionStorage.getItem(`answer_${currentIndex}`);
             if (savedAnswer && savedAnswer === obj[`answer_${i}`]) {
                 radioInput.checked = true;
@@ -174,7 +188,7 @@ function checkAnswer(rAnswer, count) {
         if (answers[i].checked) {
             theChoosenAnswer = answers[i].dataset.answer;
 
-            // ✅ Save answer to sessionStorage
+            // Save answer to sessionStorage
             sessionStorage.setItem(`answer_${currentIndex}`, theChoosenAnswer);
         }
     }
@@ -196,12 +210,12 @@ function checkAllAnswers() {
     let allAnswered = true;
 
     for (let i = 0; i < questionsObj.length; i++) {
-        // تحقق إذا كان المستخدم قد أجاب على السؤال الحالي
+        
         let savedAnswer = sessionStorage.getItem(`answer_${i}`);
         if (!savedAnswer) {
             allAnswered = false;
             nextButton.disabled = false;
-            // إذا لم يكن هناك إجابة، انتقل مباشرة للسؤال غير المجاب عليه
+    
             currentIndex = i;
             questionArea.innerHTML = "";
             answerArea.innerHTML = "";
@@ -222,13 +236,12 @@ function showResults(count) {
         submitButton.disabled=false;
 
         submitButton.onclick = () => {
-            // تحقق من الإجابات قبل الانتقال
-            let rightAnswer = questionsObj[currentIndex].right_answer;
-            checkAnswer(rightAnswer, questionsObj.length); // حفظ الإجابة الأخيرة
         
-            // التحقق من الإجابات
+            let rightAnswer = questionsObj[currentIndex].right_answer;
+            checkAnswer(rightAnswer, questionsObj.length); 
+        
             if (checkAllAnswers()) {
-                // إذا كانت جميع الأسئلة قد تم الإجابة عليها
+                
                 let correctCount = 0;
                 for (let i = 0; i < questionsObj.length; i++) {
                     const userAnswer = sessionStorage.getItem(`answer_${i}`);
@@ -237,10 +250,9 @@ function showResults(count) {
                     }
                 }
         
-                // حفظ النتيجة في sessionStorage
                 sessionStorage.setItem("result", correctCount);
                 sessionStorage.setItem("total", questionsObj.length);
-                window.location.href = "result.html"; // الانتقال إلى صفحة النتيجة
+                window.location.href = "result.html"; 
             }
         };
     }
