@@ -180,6 +180,7 @@ button:hover{
 @media (max-width: 860px) {
     .container{
         margin: auto;
+        margin-top: 10px;
         width: 95%;
         height:fit-content;
     }
@@ -201,6 +202,7 @@ button:hover{
     .bullets {
       width: 100%;
       justify-content: center;
+      gap: 10px;
     }
   
     .buttons .submit {

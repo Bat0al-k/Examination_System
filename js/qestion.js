@@ -14,7 +14,6 @@ let rightAnswers = 0;
 let countDownInterval = 0;
 let questionsObj = []; // make global
 submitButton.disabled = true;
-
 // ________________ Prevent Back & Reload Button ________________
 (() => {
     const DISABLE_DURATION = 180000; // 3 minutes
@@ -152,6 +151,10 @@ async function getQuestions() {
         }
 
         questionsObj = await response.json();
+        
+        // Shuffle questionsObj array
+        shuffleArray(questionsObj);
+
         let questionCount = questionsObj.length;
 
         createBullets(questionCount);
@@ -197,11 +200,21 @@ async function getQuestions() {
         };
 
     } catch (error) {
+        window.location.href = "404.html";
         console.error("Failed to load questions:", error);
     }
 }
 
+// Shuffle function to randomize the questions
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+}
+
 getQuestions();
+
 
 function createBullets(num) {
     countDown.innerHTML = num;
@@ -252,7 +265,7 @@ function addQuestionData(obj, count) {
             radioInput.id = `answer_${i}`;
             radioInput.dataset.answer = obj[`answer_${i}`];
 
-            // ✅ Load saved answer from sessionStorage
+            // Load saved answer from sessionStorage
             let savedAnswer = sessionStorage.getItem(`answer_${currentIndex}`);
             if (savedAnswer && savedAnswer === obj[`answer_${i}`]) {
                 radioInput.checked = true;
@@ -283,7 +296,7 @@ function checkAnswer(rAnswer, count) {
         if (answers[i].checked) {
             theChoosenAnswer = answers[i].dataset.answer;
 
-            // ✅ Save answer to sessionStorage
+            // Save answer to sessionStorage
             sessionStorage.setItem(`answer_${currentIndex}`, theChoosenAnswer);
         }
     }
@@ -352,6 +365,7 @@ function showResults(count) {
                 sessionStorage.setItem("total", questionsObj.length);
                 // window.location.href = "result.html"; 
                 window.location.replace("result.html"); 
+
             }
         };
     }

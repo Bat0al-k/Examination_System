@@ -164,6 +164,104 @@ body {
     transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
+
+@media (max-width: 768px) {
+    .homeContainer {
+        width: 80%;
+        height: auto;
+        padding: 3vh;
+        margin: 10vh auto;
+    }
+
+    .homeContainer h2 {
+        font-size: 16px;
+    }
+
+    .homeContainer p {
+        font-size: 16px;
+    }
+
+    .categories button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    #btn-group {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .examType {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+
+    .examType i {
+        font-size: 1.2em;
+    }
+
+    .examType span {
+        font-size: 0.9em;
+    }
+
+    .arrow-btn {
+        font-size: 18px;
+        padding: 10px 18px;
+        margin: auto;
+    }
+}
+
+/* For Mobile (480px and below) */
+@media (max-width: 480px) {
+    body {
+        background-size:auto;
+        background-attachment: scroll;
+    }
+
+    .homeContainer {
+        width: 90%;
+        padding: 4vh;
+        margin: 8vh auto;
+    }
+
+    .homeContainer h2 {
+        font-size: 14px;
+    }
+
+    .homeContainer p {
+        font-size: 14px;
+    }
+
+    .categories button {
+        padding: 8px 12px;
+        font-size: 12px;
+        margin: 5px;
+    }
+
+    #btn-group {
+        gap: 10px;
+    }
+
+    .examType {
+        font-size: 0.9rem;
+        padding: 8px 14px;
+    }
+
+    .examType i {
+        font-size: 1.1em;
+    }
+
+    .examType span {
+        font-size: 0.8em;
+    }
+
+    .arrow-btn {
+        font-size: 16px;
+        padding: 8px 16px;
+        margin: auto;
+    }
+}
 /* ______________ loader overlay design _____________ */
 #loaderOverlay {
     position: fixed;
