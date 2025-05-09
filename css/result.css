@@ -108,6 +108,86 @@ body {
     width: auto;
     min-width: 150px;
 }
+
+@media (max-width: 768px) {
+    body {
+        background-size: cover;
+        background-attachment: scroll;
+    }
+
+    .resultContainer {
+        width: 80%;
+        padding: 3vh;
+        margin: 5vh auto;
+    }
+
+    .resultContainer h2 {
+        font-size: 20px;
+    }
+
+    .resultContainer #resultText {
+        font-size: 18px;
+    }
+
+    .resultContainer p {
+        font-size: 14px;
+    }
+
+    .checkmark-container {
+        width: 35vh;
+        height: 35vh;
+    }
+
+    .action-btn {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* For Mobile (480px and below) */
+@media (max-width: 480px) {
+    body {
+        background-size: cover;
+        background-attachment: scroll;
+    }
+
+    .resultContainer {
+        width: 90%;
+        padding: 4vh;
+        margin: 5vh auto;
+    }
+
+    .resultContainer h2 {
+        font-size: 18px;
+    }
+
+    .resultContainer #resultText {
+        font-size: 16px;
+    }
+
+    .resultContainer p {
+        font-size: 12px;
+    }
+
+    .checkmark-container {
+        width: 30vh;
+        height: 30vh;
+    }
+
+    .action-btn {
+        padding: 10px 24px;
+        font-size: 14px;
+    }
+
+    .button-group {
+        gap: 10px;
+    }
+}
 /* ____________ Loader Overlay design _______________ */
 #loaderOverlay {
     position: fixed;
