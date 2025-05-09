@@ -16,7 +16,11 @@ let questionsObj = []; // make global
 submitButton.disabled=true;
 async function getQuestions() {
     try {
-        sessionStorage.clear(); // Clear session data on start
+        Object.keys(sessionStorage).forEach(key => {
+            if (key.startsWith("answer_") || key === "result" || key === "total") {
+                sessionStorage.removeItem(key);
+            }
+          }); // Clear session data on start
 
         let selectedExamType = localStorage.getItem("selectedExamType");
         let fileName;
