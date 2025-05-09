@@ -1,10 +1,12 @@
 const backHomeBtn = document.getElementById("backHomeBtn");
+
 backHomeBtn.addEventListener("click", function() {
     const loaderOverlay = document.getElementById("loaderOverlay");
     loaderOverlay.style.display = "flex";
     setTimeout(() => {
         loaderOverlay.classList.add("hidden");
-        window.location.href = "../HTML/home.html";
+        // window.location.href = "../HTML/home.html";
+        window.location.replace("../HTML/home.html");
     }, 2500);
 });
 
@@ -18,7 +20,7 @@ if (correct !== null && total !== null) {
     document.getElementById("calibrate").style.display = "none";
     document.getElementById("resultText").textContent =
     `You got ${correct} out of ${total} correct.`;
-    resultMsg.textContent = "Unfortunately, you didn't pass. Try again to improve your score! 😞";
+    resultMsg.textContent = "Unfortunately, you didn't pass. Try again to improve your score! 😔";
     document.getElementById('image').style.backgroundImage = "url('../images/resultFailed.jpg')";
 //___________________ retry button _________________
     const retryBtn = document.createElement("button");
@@ -31,7 +33,8 @@ if (correct !== null && total !== null) {
       loaderOverlay.style.display = "flex";
       setTimeout(() => {
         loaderOverlay.classList.add("hidden");
-        window.location.href = "../HTML/qestionpage.html"; 
+        // window.location.href = "../HTML/qestionpage.html"; 
+        window.location.replace("../HTML/qestionpage.html"); 
       }, 2500);
     });
   } else {

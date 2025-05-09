@@ -7,24 +7,129 @@ let nextButton = document.querySelector(".buttons .next");
 let submitButton = document.querySelector(".buttons .submit");
 let Timer = document.querySelector(".Timer");
 let flag = document.querySelector(".flag");
-let category=document.querySelector(".category");
+let category = document.querySelector(".category");
 
 let currentIndex = 0;
 let rightAnswers = 0;
 let countDownInterval = 0;
 let questionsObj = []; // make global
-submitButton.disabled=true;
+submitButton.disabled = true;
+
+// ________________ Prevent Back & Reload Button ________________
+(() => {
+    const DISABLE_DURATION = 180000; // 3 minutes
+    const STORAGE_KEY = 'navigationDisableEndTime';
+
+    let navDisabled = false;
+    let timeoutId;
+
+    const now = () => new Date().getTime();
+
+    function disableLinks() {
+        document.querySelectorAll('a').forEach(link => {
+            link.classList.add('disabled');
+            link.addEventListener('click', preventDefaultAction, true);
+        });
+    }
+
+    function enableLinks() {
+        document.querySelectorAll('a').forEach(link => {
+            link.classList.remove('disabled');
+            link.removeEventListener('click', preventDefaultAction, true);
+        });
+    }
+
+    function preventDefaultAction(e) {
+        e.preventDefault();
+    }
+
+    function disableNavigationButtons() {
+        history.pushState(null, document.title, location.href);
+        window.addEventListener('popstate', blockNavigation);
+        window.addEventListener('keydown', blockReloadKeys, true);
+    }
+
+    function enableNavigationButtons() {
+        window.removeEventListener('popstate', blockNavigation);
+        window.removeEventListener('keydown', blockReloadKeys, true);
+    }
+
+    function blockNavigation(event) {
+        if (navDisabled) {
+            history.pushState(null, document.title, location.href);
+        }
+    }
+
+    function blockReloadKeys(e) {
+        if (!navDisabled) return;
+
+        const key = e.key;
+
+        if (
+            key === 'F5' ||
+            (e.ctrlKey && (key === 'r' || key === 'R')) ||
+            (e.ctrlKey && (key === 'ArrowLeft' || key === 'ArrowRight')) ||
+            (e.metaKey && (key === 'r' || key === 'R'))
+        ) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }
+
+    function endDisablePeriod() {
+        navDisabled = false;
+        enableLinks();
+        enableNavigationButtons();
+        console.log("✅ Navigation re-enabled");
+        localStorage.removeItem(STORAGE_KEY);
+    }
+
+    function startDisablePeriod(remainingMs) {
+        navDisabled = true;
+        disableLinks();
+        disableNavigationButtons();
+        console.log("⛔ Navigation disabled for", remainingMs / 1000, "seconds");
+
+        timeoutId = setTimeout(() => {
+            endDisablePeriod();
+        }, remainingMs);
+    }
+
+    function initDisable() {
+        const storedEndTime = localStorage.getItem(STORAGE_KEY);
+        const currentTime = now();
+
+        if (storedEndTime) {
+            const disableEndTime = parseInt(storedEndTime, 180);
+            if (disableEndTime > currentTime) {
+                const remaining = disableEndTime - currentTime;
+                startDisablePeriod(remaining);
+                return;
+            } else {
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        }
+
+        const newDisableEndTime = currentTime + DISABLE_DURATION;
+        localStorage.setItem(STORAGE_KEY, newDisableEndTime.toString());
+        startDisablePeriod(DISABLE_DURATION);
+    }
+
+    window.addEventListener('load', initDisable);
+})();
+// __________________ End _________________
+// __________________ question Area _________________
 async function getQuestions() {
     try {
         Object.keys(sessionStorage).forEach(key => {
             if (key.startsWith("answer_") || key === "result" || key === "total") {
                 sessionStorage.removeItem(key);
             }
-          }); // Clear session data on start
+        }); // Clear session data on start
 
         let selectedExamType = localStorage.getItem("selectedExamType");
         let fileName;
-        category.textContent+= selectedExamType;
+        category.textContent += selectedExamType;
 
         switch (selectedExamType) {
             case "HTML":
@@ -96,7 +201,6 @@ async function getQuestions() {
     }
 }
 
-
 getQuestions();
 
 function createBullets(num) {
@@ -162,6 +266,11 @@ function addQuestionData(obj, count) {
             mainDiv.appendChild(radioInput);
             mainDiv.appendChild(label);
             answerArea.appendChild(mainDiv);
+
+            // Add event listener to save the answer
+            radioInput.addEventListener("change", () => {
+                sessionStorage.setItem(`answer_${currentIndex}`, radioInput.dataset.answer);
+            });
         }
     }
 }
@@ -192,16 +301,17 @@ function handleBullets() {
         }
     });
 }
+
 function checkAllAnswers() {
     let allAnswered = true;
 
     for (let i = 0; i < questionsObj.length; i++) {
-        // تحقق إذا كان المستخدم قد أجاب على السؤال الحالي
+        // Check if there is an answer saved in sessionStorage
         let savedAnswer = sessionStorage.getItem(`answer_${i}`);
         if (!savedAnswer) {
             allAnswered = false;
             nextButton.disabled = false;
-            // إذا لم يكن هناك إجابة، انتقل مباشرة للسؤال غير المجاب عليه
+            // Go to the question that has no answer
             currentIndex = i;
             questionArea.innerHTML = "";
             answerArea.innerHTML = "";
@@ -219,16 +329,16 @@ function checkAllAnswers() {
 function showResults(count) {
     if (currentIndex === count - 1) {
         nextButton.disabled = true;
-        submitButton.disabled=false;
+        submitButton.disabled = false;
 
         submitButton.onclick = () => {
-            // تحقق من الإجابات قبل الانتقال
+            // check the last answer
             let rightAnswer = questionsObj[currentIndex].right_answer;
-            checkAnswer(rightAnswer, questionsObj.length); // حفظ الإجابة الأخيرة
-        
-            // التحقق من الإجابات
+            checkAnswer(rightAnswer, questionsObj.length); // save the last answer
+
+            // check answers
             if (checkAllAnswers()) {
-                // إذا كانت جميع الأسئلة قد تم الإجابة عليها
+                // if all answers are answered
                 let correctCount = 0;
                 for (let i = 0; i < questionsObj.length; i++) {
                     const userAnswer = sessionStorage.getItem(`answer_${i}`);
@@ -236,16 +346,16 @@ function showResults(count) {
                         correctCount++;
                     }
                 }
-        
+
                 // حفظ النتيجة في sessionStorage
                 sessionStorage.setItem("result", correctCount);
                 sessionStorage.setItem("total", questionsObj.length);
-                window.location.href = "result.html"; // الانتقال إلى صفحة النتيجة
+                // window.location.href = "result.html"; 
+                window.location.replace("result.html"); 
             }
         };
     }
 }
-
 
 // Flag event
 flag.onclick = () => {
@@ -255,39 +365,36 @@ flag.onclick = () => {
     }
 };
 
-
 function countDownTimer(duration) {
     clearInterval(countDownInterval);
-    let minutes = Math.floor(duration / 60);
-    let seconds = duration % 60;
 
-    Timer.innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    Timer.style.color = duration <= 30 ? "red" : "#333";
+    const now = Date.now();
 
-    countDownInterval = setInterval(function () {
-        duration--;
+    let endTime = sessionStorage.getItem("examEndTime");
 
-        minutes = Math.floor(duration / 60);
-        seconds = duration % 60;
+    if (!endTime) {
+        endTime = now + duration * 1000; 
+        sessionStorage.setItem("examEndTime", endTime);
+    } else {
+        endTime = parseInt(endTime, 10);
+    }
 
-        Timer.innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    countDownInterval = setInterval(() => {
+        const currentTime = Date.now();
+        let remainingTime = Math.floor((endTime - currentTime) / 1000); 
 
-
-        if (duration <= 30) {
-            Timer.style.color = "red";
-        } else {
-            Timer.style.color = "#333";
-            Timer.style.animation = "none";
-        }
-
-        if (duration <= 0) {
+        if (remainingTime <= 0) {
             clearInterval(countDownInterval);
-            console.log('time is out');
-            window.open("result.html", "_self");
-            nextButton.disabled = true;
-            submitButton.click();
+            sessionStorage.removeItem("examEndTime");
+            window.location.replace("result.html"); 
+        } else {
+            let minutes = Math.floor(remainingTime / 60);
+            let seconds = remainingTime % 60;
+
+            Timer.innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            Timer.style.color = remainingTime <= 30 ? "red" : "#333";
         }
     }, 1000);
 }
 
-
+countDownTimer(questionsObj[currentIndex].time);

@@ -43,7 +43,8 @@ arrowBtn.addEventListener("click", () => {
         loaderOverlay.style.display = "flex";
         setTimeout(() => {
             loaderOverlay.classList.add("hidden");
-            window.location.href = `../HTML/qestionpage.html?type=${selectedExamType}`;
+            // window.location.href = `../HTML/qestionpage.html?type=${selectedExamType}`;
+            window.location.replace(`../HTML/qestionpage.html?type=${selectedExamType}`);
         }, 2500);
     }
 });

@@ -74,12 +74,14 @@ document.addEventListener('DOMContentLoaded', function () {
             // Check if data exists and is valid
             if (!storedEmail || !storedPassword) {
             // Redirect to 404 page if no user is stored
-            window.location.href = '../html/404.html';
+            // window.location.href = '../html/404.html';
+            window.location.replace('../html/404.html');
             return;
             }
 
             if (email === storedEmail && password === storedPassword) {
-                window.location.href = '../html/home.html';
+                // window.location.href = '../html/home.html';
+                window.location.replace('../html/home.html');
                 form.reset();
         } else {
             showError(emailInput, false, 'Invalid email or password');

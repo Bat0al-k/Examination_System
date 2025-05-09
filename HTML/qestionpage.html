@@ -1,30 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Question</title>
+    <link rel="shortcut icon" href="../css/favicon.svg">
     <link rel="stylesheet" href="../css/question.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Prevent back navigation and refresh
-            history.pushState(null, "", location.href);
-            window.onpopstate = function() {
-            history.pushState(null, "", location.href); // Keeps pushing the state so that user can't navigate back
-            };
-
-            // Prevent the page from refreshing or leaving the page
-            window.addEventListener('beforeunload', function(e) {
-                // Show a warning to the user
-                const message = "You will fail the exam if you leave or refresh the page. Please make sure to submit your answers.";
-                e.returnValue = message; // For modern browsers (not all browsers support custom messages)
-                return message; // For some older browsers
-            });
-        });
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <title>Examination System</title>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
