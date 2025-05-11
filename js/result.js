@@ -75,3 +75,19 @@ for (let i = 0; i < 400; i++) {
   confetti.style.animationDuration = `${2 + Math.random() * 2}s`;
   wrapper.appendChild(confetti);
 }
+function resetExam() {
+    Object.keys(sessionStorage).forEach(key => {
+        if (key.startsWith("answer_") || key === "result" || key === "total" || key === "examEndTime" || key === "examStarted") {
+            sessionStorage.removeItem(key);
+        }
+    });
+    
+    sessionStorage.setItem("isNewExam", "true");
+    
+    currentIndex = 0;
+    rightAnswers = 0;
+    
+    // location.reload();
+}
+resetExam()
+sessionStorage.clear();
