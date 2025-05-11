@@ -19,7 +19,7 @@ if (correct !== null && total !== null) {
     document.getElementsByTagName('h2')[0].textContent = "OOPS.!! You failed!";
     document.getElementById("calibrate").style.display = "none";
     document.getElementById("resultText").textContent =
-    `You got ${correct} out of ${total} correct.`;
+    You got ${correct} out of ${total} correct.;
     resultMsg.textContent = "Unfortunately, you didn't pass. Try again to improve your score! 😔";
     document.getElementById('image').style.backgroundImage = "url('../images/resultFailed.jpg')";
 //___________________ retry button _________________
@@ -39,7 +39,7 @@ if (correct !== null && total !== null) {
     });
   } else {
     document.getElementById("resultText").textContent =
-      `You got ${correct} out of ${total} correct.`;
+      You got ${correct} out of ${total} correct.;
   }
 } else {
   document.getElementById("box").style.margin="25vh auto";
@@ -72,7 +72,7 @@ for (let i = 0; i < 400; i++) {
   const y = (Math.random() - 0.5) * 1300 + "px";
   confetti.style.setProperty('--x-move', x);
   confetti.style.setProperty('--y-move', y);
-  confetti.style.animationDuration = `${2 + Math.random() * 2}s`;
+  confetti.style.animationDuration = ${2 + Math.random() * 2}s;
   wrapper.appendChild(confetti);
 }
 function resetExam() {
