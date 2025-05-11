@@ -12,7 +12,7 @@ let category = document.querySelector(".category");
 let currentIndex = 0;
 let rightAnswers = 0;
 let countDownInterval = 0;
-let questionsObj = []; // make global
+let questionsObj = []; 
 submitButton.disabled = true;
 // ________________ Prevent Back & Reload Button ________________
 (() => {
@@ -113,23 +113,30 @@ submitButton.disabled = true;
         localStorage.setItem(STORAGE_KEY, newDisableEndTime.toString());
         startDisablePeriod(DISABLE_DURATION);
     }
-
+    
     window.addEventListener('load', initDisable);
 })();
 // __________________ End _________________
 // __________________ question Area _________________
 async function getQuestions() {
+    countDownTimer(180);
     try {
-        Object.keys(sessionStorage).forEach(key => {
-            if (key.startsWith("answer_") || key === "result" || key === "total") {
-                sessionStorage.removeItem(key);
-            }
-        }); // Clear session data on start
+        if (!sessionStorage.getItem("examStarted") || localStorage.getItem("examStartedAgain")) {
+            sessionStorage.setItem("examStarted", "true");
+
+            Object.keys(sessionStorage).forEach(key => {
+                if (key.startsWith("answer_") || key === "result" || key === "total") {
+                    sessionStorage.removeItem(key);
+                }
+            });
+
+            localStorage.removeItem("examStartedAgain");
+        }
 
         let selectedExamType = localStorage.getItem("selectedExamType");
         let fileName;
         category.textContent += selectedExamType;
-
+        
         switch (selectedExamType) {
             case "HTML":
                 fileName = "../JSON/htmlQuestions.json";
@@ -144,28 +151,34 @@ async function getQuestions() {
                 console.error("No valid exam type found!");
                 return;
         }
-
+        
         const response = await fetch(fileName);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        questionsObj = await response.json();
         
-        // Shuffle questionsObj array
-        shuffleArray(questionsObj);
+        questionsObj = await response.json();
+
+        if (!sessionStorage.getItem("shuffledQuestions") || localStorage.getItem("examStartedAgain")) {
+            shuffleArray(questionsObj);
+            sessionStorage.setItem("shuffledQuestions", JSON.stringify(questionsObj));
+            localStorage.removeItem("examStartedAgain");
+        } else {
+            questionsObj = JSON.parse(sessionStorage.getItem("shuffledQuestions"));
+        }
 
         let questionCount = questionsObj.length;
-
+        
         createBullets(questionCount);
         addQuestionData(questionsObj[currentIndex], questionCount);
-        countDownTimer(180);
 
         nextButton.onclick = () => {
             let rightAnswer = questionsObj[currentIndex].right_answer;
 
             checkAnswer(rightAnswer, questionCount);
             currentIndex++;
+
+            sessionStorage.setItem("currentIndex", currentIndex);
 
             questionArea.innerHTML = "";
             answerArea.innerHTML = "";
@@ -186,6 +199,8 @@ async function getQuestions() {
 
             checkAnswer(rightAnswer, questionCount);
             currentIndex--;
+
+            sessionStorage.setItem("currentIndex", currentIndex);
 
             questionArea.innerHTML = "";
             answerArea.innerHTML = "";
@@ -212,9 +227,7 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]]; // Swap elements
     }
 }
-
 getQuestions();
-
 
 function createBullets(num) {
     countDown.innerHTML = num;
@@ -317,7 +330,7 @@ function handleBullets() {
 
 function checkAllAnswers() {
     let allAnswered = true;
-
+    
     for (let i = 0; i < questionsObj.length; i++) {
         // Check if there is an answer saved in sessionStorage
         let savedAnswer = sessionStorage.getItem(`answer_${i}`);
@@ -333,22 +346,20 @@ function checkAllAnswers() {
             break;
         }
     }
-
+    
     return allAnswered;
 }
-
-// (Optional) You may have countDownTimer and showResults functions below here if needed.
 
 function showResults(count) {
     if (currentIndex === count - 1) {
         nextButton.disabled = true;
         submitButton.disabled = false;
-
+        
         submitButton.onclick = () => {
             // check the last answer
             let rightAnswer = questionsObj[currentIndex].right_answer;
             checkAnswer(rightAnswer, questionsObj.length); // save the last answer
-
+            
             // check answers
             if (checkAllAnswers()) {
                 // if all answers are answered
@@ -360,12 +371,11 @@ function showResults(count) {
                     }
                 }
 
-                // حفظ النتيجة في sessionStorage
+                //save sessionStorage
                 sessionStorage.setItem("result", correctCount);
                 sessionStorage.setItem("total", questionsObj.length);
                 // window.location.href = "result.html"; 
                 window.location.replace("result.html"); 
-
             }
         };
     }
@@ -383,8 +393,16 @@ function countDownTimer(duration) {
     clearInterval(countDownInterval);
 
     const now = Date.now();
+    let endTime;
 
-    let endTime = sessionStorage.getItem("examEndTime");
+    const isNewExam = sessionStorage.getItem("isNewExam") === "true";
+
+    if (isNewExam) {
+        sessionStorage.removeItem("examEndTime");
+        sessionStorage.setItem("isNewExam", "false");
+    }
+
+    endTime = sessionStorage.getItem("examEndTime");
 
     if (!endTime) {
         endTime = now + duration * 1000; 
@@ -393,22 +411,26 @@ function countDownTimer(duration) {
         endTime = parseInt(endTime, 10);
     }
 
+    updateTimer(endTime);
+
     countDownInterval = setInterval(() => {
-        const currentTime = Date.now();
-        let remainingTime = Math.floor((endTime - currentTime) / 1000); 
-
-        if (remainingTime <= 0) {
-            clearInterval(countDownInterval);
-            sessionStorage.removeItem("examEndTime");
-            window.location.replace("result.html"); 
-        } else {
-            let minutes = Math.floor(remainingTime / 60);
-            let seconds = remainingTime % 60;
-
-            Timer.innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            Timer.style.color = remainingTime <= 30 ? "red" : "#333";
-        }
+        updateTimer(endTime);
     }, 1000);
 }
 
-countDownTimer(questionsObj[currentIndex].time);
+function updateTimer(endTime) {
+    const currentTime = Date.now();
+    let remainingTime = Math.floor((endTime - currentTime) / 1000); 
+
+    if (remainingTime <= 0) {
+        clearInterval(countDownInterval);
+        sessionStorage.removeItem("examEndTime");
+        window.location.replace("result.html"); 
+    } else {
+        let minutes = Math.floor(remainingTime / 60);
+        let seconds = remainingTime % 60;
+
+        Timer.innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        Timer.style.color = remainingTime <= 30 ? "red" : "#333";
+    }
+}
