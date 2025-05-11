@@ -154,7 +154,7 @@ async function getQuestions() {
         
         const response = await fetch(fileName);
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(HTTP error! status: ${response.status});
         }
         
         questionsObj = await response.json();
@@ -275,18 +275,18 @@ function addQuestionData(obj, count) {
             let radioInput = document.createElement("input");
             radioInput.type = 'radio';
             radioInput.name = 'question';
-            radioInput.id = `answer_${i}`;
-            radioInput.dataset.answer = obj[`answer_${i}`];
+            radioInput.id = answer_${i};
+            radioInput.dataset.answer = obj[answer_${i}];
 
             // Load saved answer from sessionStorage
-            let savedAnswer = sessionStorage.getItem(`answer_${currentIndex}`);
-            if (savedAnswer && savedAnswer === obj[`answer_${i}`]) {
+            let savedAnswer = sessionStorage.getItem(answer_${currentIndex});
+            if (savedAnswer && savedAnswer === obj[answer_${i}]) {
                 radioInput.checked = true;
             }
 
             let label = document.createElement('label');
-            label.htmlFor = `answer_${i}`;
-            let labelText = document.createTextNode(obj[`answer_${i}`]);
+            label.htmlFor = answer_${i};
+            let labelText = document.createTextNode(obj[answer_${i}]);
             label.appendChild(labelText);
 
             mainDiv.appendChild(radioInput);
@@ -295,7 +295,7 @@ function addQuestionData(obj, count) {
 
             // Add event listener to save the answer
             radioInput.addEventListener("change", () => {
-                sessionStorage.setItem(`answer_${currentIndex}`, radioInput.dataset.answer);
+                sessionStorage.setItem(answer_${currentIndex}, radioInput.dataset.answer);
             });
         }
     }
@@ -310,7 +310,7 @@ function checkAnswer(rAnswer, count) {
             theChoosenAnswer = answers[i].dataset.answer;
 
             // Save answer to sessionStorage
-            sessionStorage.setItem(`answer_${currentIndex}`, theChoosenAnswer);
+            sessionStorage.setItem(answer_${currentIndex}, theChoosenAnswer);
         }
     }
 
@@ -333,7 +333,7 @@ function checkAllAnswers() {
     
     for (let i = 0; i < questionsObj.length; i++) {
         // Check if there is an answer saved in sessionStorage
-        let savedAnswer = sessionStorage.getItem(`answer_${i}`);
+        let savedAnswer = sessionStorage.getItem(answer_${i});
         if (!savedAnswer) {
             allAnswered = false;
             nextButton.disabled = false;
@@ -365,7 +365,7 @@ function showResults(count) {
                 // if all answers are answered
                 let correctCount = 0;
                 for (let i = 0; i < questionsObj.length; i++) {
-                    const userAnswer = sessionStorage.getItem(`answer_${i}`);
+                    const userAnswer = sessionStorage.getItem(answer_${i});
                     if (userAnswer === questionsObj[i].right_answer) {
                         correctCount++;
                     }
@@ -430,7 +430,7 @@ function updateTimer(endTime) {
         let minutes = Math.floor(remainingTime / 60);
         let seconds = remainingTime % 60;
 
-        Timer.innerHTML = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        Timer.innerHTML = ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')};
         Timer.style.color = remainingTime <= 30 ? "red" : "#333";
     }
 }
