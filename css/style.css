@@ -326,10 +326,10 @@ body{
 
 /* Media Queries for smaller devices */
 @media (max-width: 768px) {
-    .form {
+    .form, .login-mode {
         max-width: 80%;
         height: fit-content;
-        margin: auto;
+        margin: 18vh auto;
     }
 
     .title {
@@ -345,12 +345,13 @@ body{
     }
 
     .form label {
-        left: 0;
+        left: 2vh;
         width: 100%;
     }
 
     .form label .input {
         width: 90%;
+        color: black;
     }
 
     .submit {

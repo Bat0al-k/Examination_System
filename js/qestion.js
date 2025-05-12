@@ -16,13 +16,10 @@ let questionsObj = [];
 submitButton.disabled = true;
 // ________________ Prevent Back & Reload Button ________________
 (() => {
-    const DISABLE_DURATION = 180000; // 3 minutes
     const STORAGE_KEY = 'navigationDisableEndTime';
-
     let navDisabled = false;
     let timeoutId;
-
-    const now = () => new Date().getTime();
+    // const now = () => new Date().getTime();
 
     function disableLinks() {
         document.querySelectorAll('a').forEach(link => {
@@ -108,10 +105,6 @@ submitButton.disabled = true;
                 localStorage.removeItem(STORAGE_KEY);
             }
         }
-
-        const newDisableEndTime = currentTime + DISABLE_DURATION;
-        localStorage.setItem(STORAGE_KEY, newDisableEndTime.toString());
-        startDisablePeriod(DISABLE_DURATION);
     }
     
     window.addEventListener('load', initDisable);

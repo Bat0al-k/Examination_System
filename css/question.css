@@ -184,10 +184,20 @@ button:hover{
         width: 95%;
         height:fit-content;
     }
+
+    .header{
+        width: 90%;
+    }
+
     .main {
         flex-direction: column;
         margin: auto;
-      }
+    }
+
+    .quiz-section{
+        margin: auto;
+    }
+
       .questionTitlle{
         width: 100%;
       }

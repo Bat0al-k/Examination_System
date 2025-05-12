@@ -42,7 +42,7 @@ if (correct !== null && total !== null) {
       `You got ${correct} out of ${total} correct.`;
   }
 } else {
-  document.getElementById("box").style.margin="25vh auto";
+  document.getElementById("box").style.margin="35vh auto";
   document.getElementById("resultText").textContent = "No result available.";
   document.getElementById('image').style.backgroundImage = "url('../images/resultFailed.jpg')";
   document.getElementsByTagName('h2')[0].textContent = "Time is out! bad luck..!";
