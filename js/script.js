@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 title.textContent = "Register";
                 message.textContent = "Signup now and get the exam.";
-                submitBtn.textContent = "Submit";
+                submitBtn.textContent = "Sign Up";
                 signinLink.innerHTML = 'Already have an account? <a href="#">Sign in</a>';
                 form.classList.remove('login-mode');
                 document.querySelector('.fullname-field').style.display = 'block';
@@ -132,9 +132,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Validation functions 
     function validateForm() {
-        if (isLoginMode) {
+        if (isLoginMode) { // if login mode 
             return validateEmail() & validatePassword();
-        } else {
+        } else { // if register mode
             return (
                 validateFullname() &
                 validateEmail() &
@@ -144,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+// ____________ validation ____________
     function validateFullname() {
         const value = fullnameInput.value.trim();
         const isValid = /^[A-Za-z\s]{8,}$/.test(value);
@@ -173,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showError(input, isValid, message) {
-        let errorElement = input.parentNode.querySelector('.error-message');
+        let errorElement = input.parentNode.querySelector('.error-message'); // Get the error element if it exists and is valid put the message in it by using parent node get the label element and then get the error element.
         if (!errorElement) {
             errorElement = document.createElement('div');
             errorElement.className = 'error-message';
@@ -198,4 +199,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-
